@@ -58,6 +58,13 @@ class CephWrapper(client.CephClient):
     def status(self, **kwargs):
         return self.get('status', **kwargs)
 
+    def node_ls(self,types=None,**kwargs):
+        if types is not None:
+            return self.get('node/ls?type={0}'.format(types),**kwargs)
+        else:
+            return self.get('node/ls',**kwargs)
+
+
     ###
     # root PUT calls
     ###
@@ -315,6 +322,13 @@ class CephWrapper(client.CephClient):
     def mon_status(self, **kwargs):
         return self.get('mon_status', **kwargs)
 
+    def mon_metadata(self,id=None,**kwargs):
+        if id is not None:
+            return self.get('mon/metadata?id={0}'.format(id),**kwargs)
+        else:
+            return self.get('mon/metadata',**kwargs)
+
+
     ###
     # mon PUT calls
     ###
@@ -417,6 +431,13 @@ class CephWrapper(client.CephClient):
                             .format(epoch), **kwargs)
         else:
             return self.get('osd/tree', **kwargs)
+
+    def osd_metadata(self,id=None,**kwargs):
+        if id not in None:
+            return self.get('osd/metadata?id={0}'.format(id),**kwargs)
+        else:
+            return self.get('osd/metadata',**kwargs)
+
 
     ###
     # osd PUT calls
